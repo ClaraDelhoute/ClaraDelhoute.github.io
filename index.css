@@ -5,8 +5,10 @@
 
 nav ul li a {
     text-decoration: none;
+    
 }
 
-nav ul li {
-    text-decoration: none;
+nav ul li  {
+    list-style-type : none; 
 }
+
