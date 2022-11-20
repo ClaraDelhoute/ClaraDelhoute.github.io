@@ -1,9 +1,9 @@
-function exit()
+function exitJeu()
 {
     
     if (confirm("Voulez vous fermez le jeu ?"))
     {
     alert("A bientot !");
-    document.close(); 
+    window.document.close(); 
     }
 }
