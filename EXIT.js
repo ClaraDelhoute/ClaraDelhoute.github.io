@@ -1,7 +1,7 @@
 function exit()
 {
-    var confirm = confirm("Fermer le jeu ?"); 
-    if (confirm == true)
+    
+    if (confirm("Voulez vous fermez le jeu ?"))
     {
     alert("A bientot !");
     document.close(); 

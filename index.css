@@ -1,3 +1,10 @@
+h1 {
+    font-size : 30 px; 
+    font-weight : bold; 
+    color : blue ; 
+    text-align : center;
+}
+
 .nav{ 
     text-align: center;
     position: relative;
