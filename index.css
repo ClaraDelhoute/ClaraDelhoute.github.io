@@ -1,4 +1,12 @@
-.classnav{ 
+.nav{ 
     text-align: center;
     position: relative;
+}
+
+nav ul li a {
+    text-decoration: none;
+}
+
+nav ul li {
+    text-decoration: none;
 }
