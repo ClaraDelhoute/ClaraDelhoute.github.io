@@ -8,8 +8,8 @@ function exit()
 
 const canvas=document.querySelector("canvas");
 const c=canvas.getContext("2d")
-canvas.width=1024; 
-canvas.height=956; 
+canvas.width=1800; 
+canvas.height=940; 
 
 const gravity=0.25; 
 class Player {
