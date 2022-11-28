@@ -1,10 +1,3 @@
-function exit()
-{
-    
-    window.document.open();
-    window.document.close();
-    close();
-}
 
 const canvas=document.querySelector("canvas");
 const c=canvas.getContext("2d")
