@@ -1,21 +1,44 @@
-h1 {
-    font-size : 30 px; 
-    font-weight : bold; 
-    color : blue ; 
+body {
+    box-sizing: auto;
+}
+
+h1 { 
+    font-size : 45pt; 
+    font-weight :bolder; 
+    color : rgb(136, 172, 223);
+    padding-left : 45px; 
+}
+
+li {
+    list-style: none;
+    font-size : 25 pts
+}
+
+.nav {
     text-align : center;
 }
 
-.nav{ 
-    text-align: center;
-    position: relative;
+
+.nav a {
+    text-decoration:  none;
+    color :rgb(136, 172, 223);
 }
 
-nav ul li a {
-    text-decoration: none;
-    
+button 
+{
+    border : none; 
+    cursor : pointer;
+    color :rgb(136, 172, 223); 
+    background-color: none;
+    text-decoration : none; 
+    appearance: button;
+    margin : 40pt;
+    font-size: 25pt;
+    background-color: white;
+    cursor : pointer;
+
 }
 
-nav ul li  {
-    list-style-type : none; 
-}
+
+
 
