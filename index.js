@@ -4,7 +4,7 @@ const c=canvas.getContext("2d")
 canvas.width=1800; 
 canvas.height=940; 
 
-const gravity=0.25; 
+const gravity=0.4; 
 class Player {
 
     constructor(position) 
@@ -59,6 +59,10 @@ const keys =
     ArrowLeft: {
         pressed: false
     },
+    Space : 
+    {
+        pressed : false
+    },
 }
 function animate()
 {
@@ -100,8 +104,14 @@ window.addEventListener("keydown", (event) => {
         player.velocity.x=1.5;
         break; 
         case " " : 
-        player.velocity.y=-15;
+        if(player.velocity.y == 0 )
+        {
+        player.velocity.y=-20;
         break; 
+        }
+        else
+        {player.velocity.y=0
+        }
     }
 })
 
@@ -115,5 +125,6 @@ window.addEventListener("keyup", (event) => {
         case "ArrowRight" : 
         keys.ArrowRight.pressed= false;
         break; 
+        
     }
 })
