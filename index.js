@@ -104,14 +104,16 @@ window.addEventListener("keydown", (event) => {
         player.velocity.x=1.5;
         break; 
         case " " : 
-        if(player.velocity.y == 0 )
+        if(player.velocity.y == 0)
         {
+        keys.Space.pressed=true;
         player.velocity.y=-20;
-        break; 
+        
         }
         else
-        {player.velocity.y=0
+        {player.velocity.y= y+gravity;
         }
+        break; 
     }
 })
 
@@ -125,6 +127,8 @@ window.addEventListener("keyup", (event) => {
         case "ArrowRight" : 
         keys.ArrowRight.pressed= false;
         break; 
-        
+        case " " : 
+        keys.Space.pressed=false; 
+        break;
     }
 })
