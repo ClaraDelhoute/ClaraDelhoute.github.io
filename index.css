@@ -1,5 +1,6 @@
 body {
     box-sizing: auto;
+    width: 100%
 }
 
 h1 { 
@@ -36,6 +37,7 @@ button
     font-size: 25pt;
     background-color: white;
     cursor : pointer;
+    box-shadow: 12px 12px 2px 1px rgba(136,172,223);
 
 }
 

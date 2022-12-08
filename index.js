@@ -1,10 +1,14 @@
 
-const canvas=document.querySelector("canvas");
+const canvas=document.querySelector("canvas"); //Selectionne la balise canvas 
 const c=canvas.getContext("2d")
-canvas.width=1800; 
-canvas.height=940; 
+canvas.width=1800; //Dimension du canvas
+canvas.height=940; //Dimension du canvas
 
-const gravity=0.4; 
+
+const gravity=0.4; //Decription de la gravité du jeu
+
+var totalPoints=0
+//Création de la classe joueur
 class Player {
 
     constructor(position) 
@@ -20,11 +24,20 @@ class Player {
     {
         c.fillStyle="red"; 
         c.fillRect(this.position.x,this.position.y,100,this.height);
-    }
 
+    }
+    score()
+    {
+        
+        c.fillStyle="blue";
+        c.font="45px moon";
+        c.fillText(totalPoints,1500,50); 
+    }
+    
     update()
     {
         this.draw();
+        this.score();
         this.position.y += this.velocity.y;
         this.position.x += this.velocity.x;
         if(this.position.y + this.height + this.velocity.y < canvas.height)
@@ -32,21 +45,14 @@ class Player {
             this.velocity.y += gravity; 
         }
         else this.velocity.y=0
-        
-
+       this.totalPoints += 1;
     }
 }
 
 const player = new Player(
     {
-        x : 0,
-        y:0,
-    }
-)
-const player2=new Player(
-    {
-        x : 100,
-        y : 200,
+        x : 1,
+        y: 0,
     }
 )
 
@@ -72,8 +78,6 @@ function animate()
     c.fillRect(0,0,canvas.width,canvas.height)
     player.draw();
     player.update();
-    player2.draw(); 
-    player2.update();
     player.velocity.x=0;
     if(keys.ArrowLeft.pressed)
     {
@@ -84,8 +88,13 @@ function animate()
         if(keys.ArrowRight.pressed)
         {
             player.velocity.x=1.5;
+            if(player.position.x%13==0)
+    {
+        totalPoints++;
+    }
         }
     }
+    
 }
 
 animate()
