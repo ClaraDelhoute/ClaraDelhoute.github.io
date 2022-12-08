@@ -7,7 +7,7 @@ canvas.height=940; //Dimension du canvas
 
 const gravity=0.4; //Decription de la gravité du jeu
 
-var totalPoints=0
+var totalPoints=0 //variable de points 
 //Création de la classe joueur
 class Player {
 
