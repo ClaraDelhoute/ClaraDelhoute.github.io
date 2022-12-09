@@ -5,6 +5,8 @@ canvas.width=1800; //Dimension du canvas
 canvas.height=940; //Dimension du canvas
 
 
+var img = document.getElementById("img");
+
 const gravity=0.4; //Decription de la gravité du jeu
 
 var totalPoints=0 //variable de points 
@@ -22,8 +24,7 @@ class Player {
     }
     draw()
     {
-        c.fillStyle="red"; 
-        c.fillRect(this.position.x,this.position.y,100,this.height);
+        c.drawImage(img,this.position.x,this.position.y,150,105);
 
     }
     score()
@@ -141,3 +142,4 @@ window.addEventListener("keyup", (event) => {
         break;
     }
 })
+
