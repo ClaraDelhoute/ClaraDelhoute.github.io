@@ -1,8 +1,8 @@
 
 const canvas=document.querySelector("canvas"); //Selectionne la balise canvas 
 const c=canvas.getContext("2d") // retourne un contexte de dessin sur le canevas
-var width = canvas.width=1800; //Dimension du canvas
-var height = canvas.height=940; //Dimension du canvas
+canvas.width=1800; //Dimension du canvas
+ canvas.height=940; //Dimension du canvas
 
 
 
