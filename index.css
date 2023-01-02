@@ -7,7 +7,7 @@ body {
     box-sizing: auto;
     width: 100%;
     background-color: rgb(136, 172, 223);
-    background-image: url("C:/Users/clara/OneDrive/Images/gif-neige.gif");
+    background-image: url("gif-neige.gif");
 }
 
 h1 { 
@@ -47,7 +47,7 @@ li {
 
 
 .classnav .panneau{
-    background-image: url("C:/Users/clara/OneDrive/Images/pann.png");
+    background-image: url("pann.png");
     background-position: center;
     background-repeat: no-repeat;
     background-size: 25% 280px ;
