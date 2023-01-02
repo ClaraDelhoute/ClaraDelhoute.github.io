@@ -1,13 +1,21 @@
+
+*{
+    padding: auto;
+    margin: auto;
+}
 body {
     box-sizing: auto;
-    width: 100%
+    width: 100%;
+    background-color: rgb(136, 172, 223);
+    background-image: url("C:/Users/clara/OneDrive/Images/gif-neige.gif");
 }
 
 h1 { 
     font-size : 45pt; 
     font-weight :bolder; 
-    color : rgb(136, 172, 223);
+    color : white;
     padding-left : 45px; 
+    text-align: center;
 }
 
 li {
@@ -20,27 +28,49 @@ li {
 }
 
 
-.nav a {
+.nav .panneau a {
     text-decoration:  none;
     color :rgb(136, 172, 223);
+    
 }
 
-button 
-{
+
+
+.option img {
+    height: 100px;
+    width: 140px;
+    float : right;
+    margin-top: 25px;
+   
+}
+
+
+
+.classnav .panneau{
+    background-image: url("C:/Users/clara/OneDrive/Images/pann.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 25% 280px ;
+    text-align: center;
+    margin:1px;
+    padding:35px;
+    padding-bottom: 15px;
+    
+   
+   
+} 
+
+.classnav .panneau a,li{
     border : none; 
     cursor : pointer;
-    color :rgb(136, 172, 223); 
-    background-color: none;
+    color :white; 
     text-decoration : none; 
-    appearance: button;
     margin : 40pt;
-    font-size: 25pt;
-    background-color: white;
+    font-size: 20pt;
     cursor : pointer;
-    box-shadow: 12px 12px 2px 1px rgba(136,172,223);
-
+    appearance: none;
+    padding-top: 50px;
 }
-
 
 
 
