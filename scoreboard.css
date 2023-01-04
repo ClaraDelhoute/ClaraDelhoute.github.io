@@ -22,8 +22,8 @@ caption{font-family : arial ; font-weight : bold ;	font-size : 60px ;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    border-style: groove;
+    height: 95vh;
+    /*border-style: groove;*/
   }
   
   table {
@@ -91,4 +91,19 @@ caption{font-family : arial ; font-weight : bold ;	font-size : 60px ;
   }
   tr td:last-child {
   border-right: none;
+  }
+
+  footer
+  {
+    float: right; 
+  }
+
+  footer a 
+  {
+    color : white; 
+    font-size: 25px;
+    padding: 7px;
+    padding-right: 12px;
+    margin: 5px;
+    text-decoration: none;
   }
