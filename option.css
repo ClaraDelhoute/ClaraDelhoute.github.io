@@ -1,0 +1,33 @@
+li{
+    display: inline-block;
+    list-style: none;
+    padding : 10px; 
+    margin : 10px; 
+    color : rgb(136, 172, 223);
+    cursor: pointer;
+    
+}
+
+.ulbarrefooter a,button{
+    text-decoration: none;
+    color :rgb(136, 172, 223);
+    cursor : pointer;
+    border: none; 
+    background-color: white;
+
+}
+
+.ulbarrefooter
+{
+    float: right; 
+    margin-top: 250px; 
+}
+
+iframe{
+    display: block;
+    border:none;
+    
+}
+
+
+
