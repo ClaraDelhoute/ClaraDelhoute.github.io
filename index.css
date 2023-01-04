@@ -20,7 +20,7 @@ h1 {
 
 li {
     list-style: none;
-    font-size : 25 pts
+    font-size : 25pts
 }
 
 .nav {
@@ -50,11 +50,12 @@ li {
     background-image: url("pann.png");
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 25% 280px ;
+    background-size: 20% 250px;
     text-align: center;
-    margin:1px;
+    margin:0.1px;
     padding:35px;
     padding-bottom: 15px;
+  
     
    
    
