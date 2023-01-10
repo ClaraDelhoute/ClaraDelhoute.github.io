@@ -1,5 +1,19 @@
 
-function updateTextInput(val)
+function updateTextInput(val,type)
 {
-    document.getElementById('textInput').value=val;
+  
+  if(type=="sonPrincipal")
+  {
+    document.getElementById("textInput").value=val; 
+  }
+  else if(type=="volumeEffetSonore")
+    {
+    document.getElementById("textInputEffet").value=val; 
+    }
+  else if(type=="volumeMusique")
+        {
+    document.getElementById("textInputMusique").value=val;
+        }
 }
+
+
