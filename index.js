@@ -284,24 +284,17 @@ function animate() //animation loop
     enemies.forEach(enemie => {
         enemie.draw(); 
     })
-    c.fillStyle="black";
-    c.fillRect(0,936,2050,2);
     enemies.forEach(enemie => {
         enemie.updateEnemy();
     })
-    enemies.forEach(enemie => {
+    /*enemies.forEach(enemie => {
         if(collisionEnemy(player,enemie)==true)
         {
             console.log("collision");
         }
         else console.log("no touch");
-    })
-    c.fillText(player.position.x,650,200);
-    for(var i=0;i<=1;i++)
-    {
-    enemies.forEach(enemie => {
-    c.fillText(enemie.position.x,800+i*150,300);})
-    }
+    })*/
+    
     player.velocity.x=0;
     if(keys.ArrowRight.pressed && player.position.x%8==0)
             {
