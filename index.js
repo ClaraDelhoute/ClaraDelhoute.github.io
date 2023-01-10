@@ -1,7 +1,7 @@
 
 const canvas=document.querySelector("canvas"); //Selectionne la balise canvas 
 const c=canvas.getContext("2d"); // retourne un contexte de dessin sur le canevas
-canvas.width=1800; //Dimension du canvas
+canvas.width=1850; //Dimension du canvas
 canvas.height=940; //Dimension du canvas
 
 
@@ -12,8 +12,9 @@ const scaleWidth=scale * width;
 const scaleHeight= scale * height; 
 const cycleLoop=[0,1,2,3,4,5,6,7,8];
 let currentLoopIndex=0;
-var direction = 0; 
+var direction = "right"; 
 var img = document.getElementById("img"); 
+var img2=document.getElementById("img2")
 const gravity=0.4; //Decription de la gravité du jeu
 var totalPoints=0 //variable de points
 //Création de la classe joueur
@@ -29,6 +30,16 @@ class Player {
             y : 1,
         }
     this.height=100;    
+    this.width=130;
+    this.hitbox= {
+        position : 
+        {
+            x: this.position.x, 
+            y:this.position.y,
+        },
+        height:10, 
+        width:10
+    }
     }
     draw()
     {
@@ -36,70 +47,181 @@ class Player {
         while (Date.now() - date <25) {
 
         }
-        if (keys.ArrowLeft.pressed) {
-          /* c.scale(-1,1); 
-           c.drawImage(img,-currentLoopIndex*95+currentLoopIndex*33,0,130,height,this.position.x,this.position.y,scaleWidth,-scaleWidth);
-           currentLoopIndex++;
-           if(currentLoopIndex>= cycleLoop.length)
-           {
-                   currentLoopIndex = 0; 
-           }
-        */
-        
+      
+        if (keys.ArrowLeft.pressed==true) {
+           
         }
+           
+           
+        
+        
+        
         else if (keys.ArrowRight.pressed) {
-           /* c.drawImage(img,currentLoopIndex*95+currentLoopIndex*33,0,130,height,this.position.x,this.position.y,scaleWidth,scaleWidth);
+          /*  c.drawImage(img,currentLoopIndex*95+currentLoopIndex*33,0,130,height,this.position.x,this.position.y,scaleWidth,scaleWidth);
         currentLoopIndex++;
         if(currentLoopIndex>= cycleLoop.length)
         {
                 currentLoopIndex = 0; 
-        }*/
+        } */
         }
         else {
             currentLoopIndex =0;
-    
         }
-       c.drawImage(img,currentLoopIndex*95+currentLoopIndex*33,0,130,height,this.position.x,this.position.y,scaleWidth,scaleHeight);
+        direction="right";
+
+        c.drawImage(img,currentLoopIndex*95+currentLoopIndex*33,0,138,height,this.position.x,this.position.y,scaleWidth,scaleHeight);
         currentLoopIndex++;
         if(currentLoopIndex>= cycleLoop.length)
-        {
+             {
                 currentLoopIndex = 0; 
+             } 
         }
-    }
+    
+
 
     score() //fonction permettant de définir le score
     {
         
         c.fillStyle="blue";
-        c.font="45px moon";
-        c.fillText(totalPoints,1600,50); 
+        c.font="45px verdana";
+        c.fillText(totalPoints,1700,50); 
     }
     
     update()
     {
-        this.score(); //appelle la fonction score()
+        this.score();//appelle la fonction score()
+        this.updateHitBox(); 
+
         this.position.y += this.velocity.y;
         this.position.x += this.velocity.x;
-        if(this.position.y + this.height + this.velocity.y < canvas.height)
+        if(this.position.y + this.height + this.velocity.y <= canvas.height)
         {
             this.velocity.y += gravity; 
         }
         else this.velocity.y=0
     }
+    updateHitBox(){
+        this.hitbox= {
+            position : 
+            {
+                x: this.position.x+15, 
+                y:this.position.y + 15,
+            },
+            height:80, 
+            width:70,
+        }
+    }
+}
+
+class Plateform {
+    constructor({x,y})
+    {
+        this.position=
+        {
+        x,
+        y,
+        }
+        this.width=200;
+        this.height=20;
+    }
+    draw()
+    {
+        c.fillStyle="blue"
+        c.fillRect(this.position.x, this.position.y,this.width,this.height);
+    }
+}
+
+
+function collisionPlatform(platform, player)
+{
+    if(player.position.y + player.height <= platform.position.y && 
+        player.position.y + player.height + player.velocity.y >= platform.position.y && 
+        player.position.x + player.width  >= platform.position.x +50 && 
+        player.position.x  <= platform.width + platform.position.x -50){
+  
+        return true;
+         
+        
+    }
+} 
+class Enemy {
+    constructor({x,y})
+    {
+        this.position = {
+            x,
+            y,
+        }
+        this.velocity = 
+        {
+            x:-0.5,
+            y:0,
+        }
+        this.height=100;
+        this.width=100; 
+        this.hitbox= {
+            position : 
+            {
+                x: this.position.x, 
+                y: this.position.y,
+            },
+            height:10, 
+            width:10
+        }
+    }
+    draw()
+    {
+        c.fillStyle="red"; 
+        c.fillRect(this.position.x, this.position.y,this.width,this.height-5);
+    }
+    updateEnemy()
+    {  
+       // this.position.x+=this.velocity.x
+        this.updateHitBox();
+        this.erase();
+        this.position.y += this.velocity.y;
+        if(this.position.y + this.height + this.velocity.y <= canvas.height)
+        {
+            this.velocity.y += gravity; 
+        }
+        else this.velocity.y=0
+    }
+    updateHitBox()
+    {
+        this.hitbox= {
+            position : 
+            {
+                x : this.position.x, 
+                y :this.position.y+40,
+            },
+            height:100, 
+            width:100
+        }
+    }
+    erase()
+    {
+        enemies.forEach(enemie=> {
+            if(collisionPlatform(enemie,player))
+            {
+                
+                {
+                c.clearRect(this.position.x, this.position.y,this.width,this.height)
+                player.velocity.y+=gravity
+            }
+        }
+        })
+       
+
+}
 }
 
 const player = new Player(
     {
-        x : 1.5,
+        x : 1,
         y: 0,
         
     },
 )
 
-if(player.position.x <0)
-    {
-        player.position.x=0;
-    }
 const keys = //définition des clés du clavier
 {
     ArrowRight:
@@ -115,7 +237,30 @@ const keys = //définition des clés du clavier
     },
 }
 
-function animate()
+const platforms = [new Plateform({x:256,y: 750}),new Plateform({x:498,y:520}),new Plateform({x:898,y:656})]
+
+const enemies = [new Enemy({x:754,y:825}) /*, new Enemy({x:658,y:518})*/]
+
+
+
+function collisionEnemy(player,enemy)
+{
+    if(player.hitbox.position.x+player >= enemy.hitbox.position.x && 
+        player.hitbox.position.x <= enemy.hitbox.position.x + enemy.hitbox.width
+        && player.hitbox.position.y+player.hitbox.height>= enemy.hitbox.position.y &&
+        player.hitbox.position.y <= enemy.hitbox.position.y+enemy.hitbox.height)
+    {
+        return true;
+    }
+    else return false; 
+}
+
+var game ="notOver";
+
+
+
+
+function animate() //animation loop
 {  
    
     
@@ -128,35 +273,89 @@ function animate()
      du navigateur. 
      Cette méthode prend comme argument une fonction de rappel qui sera 
      appelée avant le rafraîchissement du navigateur.  */
-    c.fillStyle="white";
-    c.fillRect(0,0,canvas.width,canvas.height)
-    c.fillStyle="blue"
-    c.fillRect(650,670,200,30);
+   /*c.fillStyle="white";
+    c.fillRect(0,0,canvas.width,canvas.height) */
+    c.clearRect(0,0,canvas.width,canvas.height);
     player.draw()
     player.update();
-    player.velocity.x=0;
-    if(keys.ArrowLeft.pressed && player.position.x >0 )
+    platforms.forEach(platform=>{
+        platform.draw()
+    })
+    enemies.forEach(enemie => {
+        enemie.draw(); 
+    })
+    c.fillStyle="black";
+    c.fillRect(0,936,2050,2);
+    enemies.forEach(enemie => {
+        enemie.updateEnemy();
+    })
+    enemies.forEach(enemie => {
+        if(collisionEnemy(player,enemie)==true)
+        {
+            console.log("collision");
+        }
+        else console.log("no touch");
+    })
+    c.fillText(player.position.x,650,200);
+    for(var i=0;i<=1;i++)
     {
-        player.velocity.x=-3.5; 
+    enemies.forEach(enemie => {
+    c.fillText(enemie.position.x,800+i*150,300);})
     }
+    player.velocity.x=0;
+    if(keys.ArrowRight.pressed && player.position.x%8==0)
+            {
+                totalPoints += 1; 
+            }
+    if(keys.ArrowLeft.pressed && player.position.x>100)
+    {
+        player.velocity.x=-3; 
+    }
+    else if(keys.ArrowRight.pressed && player.position.x<800)
+        {
+            player.velocity.x=3;
+            
+        }
+    
     else 
     {
         if(keys.ArrowRight.pressed)
         {
-            player.velocity.x=3.5;
-            if(player.position.x%13==0)
-            {
-                totalPoints += 1; 
-            }
-        }
-    } 
-}
-while(player.position.y + player.height + player.velocity.y < canvas.height)
-        {
-            player.velocity.y += gravity; 
+            platforms.forEach(platform=>{
+                platform.position.x -=3;
+            })
         
-    c.drawImage(img,currentLoopIndex,0,130,height,player.position.x,player.position.y,scaleWidth,scaleWidth);
+            
+        }
+        else if(keys.ArrowLeft.pressed)
+        {
+            platforms.forEach(platform=>{
+                platform.position.x +=3;
+            })
+            
+        }
+    }
+
+    //collision with platform
+    platforms.forEach((platform) =>  {
+        if(collisionPlatform(platform,player))
+        {
+            player.velocity.y=0; 
+        }
+        enemies.forEach(enemie=> {
+            if(collisionPlatform(enemie,player))
+            {
+                enemie.erase();
+                player.velocity.y=0;
+            }
+        })
+    
+})
+
+    
 }
+
+
 animate() //appelle de la fonction animate()
 
 
@@ -166,11 +365,11 @@ window.addEventListener("keydown", (event) => {  //attache une fonction à appel
     {
         case "ArrowLeft" :
             keys.ArrowLeft.pressed= true;
-            player.velocity.x=-3.5;
+            player.velocity.x=-3;
         break; 
         case "ArrowRight" : 
             keys.ArrowRight.pressed= true
-            player.velocity.x=3.5;
+            player.velocity.x=3;
         break; 
         case " " : 
             if(player.velocity.y == 0)
