@@ -7,7 +7,12 @@ body {
     box-sizing: auto;
     width: 100%;
     background-color: rgb(136, 172, 223);
-    background-image: url("gif-neige.gif");
+    
+    background-image: url("gif-neige.gif") ,url("fond_hiver.png");
+    background-repeat: no-repeat, no-repeat;
+    background-position: 50%;
+    background-size: 1900px 1100px;
+    
 }
 
 h1 { 
@@ -16,6 +21,7 @@ h1 {
     color : white;
     padding-left : 45px; 
     text-align: center;
+    
 }
 
 li {
@@ -47,30 +53,39 @@ li {
 
 
 .classnav .panneau{
-    background-image: url("pann.png");
+    background-image: url("SnowSign.png");
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 20% 250px;
+    background-size: 20% contain;
     text-align: center;
-    margin:0.1px;
-    padding:35px;
-    padding-bottom: 15px;
+    margin:2px;
+    padding:10px;
+    
   
     
    
    
 } 
 
+@font-face {
+    font-family: "Stay Pixel";
+    src: url("StayPixel.ttf") format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .classnav .panneau a,li{
     border : none; 
     cursor : pointer;
-    color :white; 
+    color :black; 
     text-decoration : none; 
-    margin : 40pt;
-    font-size: 20pt;
+    margin : 50pt;
+    font-size: 25pt;
+    text-decoration: bold;
     cursor : pointer;
     appearance: none;
-    padding-top: 50px;
+    padding-top: 40px;
+   
 }
 
 
