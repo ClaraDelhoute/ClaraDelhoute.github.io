@@ -14,8 +14,10 @@ const cycleLoop=[0,1,2,3,4,5,6,7,8];
 let currentLoopIndex=0;
 var direction = "right"; 
 var img = document.getElementById("img"); 
-var img2=document.getElementById("img2")
-const gravity=0.4; //Decription de la gravité du jeu
+var img2=document.getElementById("img2");
+var fond=document.getElementById("fond");
+var imagePlatform=document.getElementById("platform");
+const gravity=0.6; //Decription de la gravité du jeu
 var totalPoints=0 //variable de points
 //Création de la classe joueur
 class Player {
@@ -121,13 +123,13 @@ class Plateform {
         x,
         y,
         }
-        this.width=200;
-        this.height=20;
+        this.width=370;
+        this.height=60;
     }
     draw()
     {
-        c.fillStyle="blue"
-        c.fillRect(this.position.x, this.position.y,this.width,this.height);
+        
+        c.drawImage(imagePlatform,this.position.x,this.position.y,this.width,this.height);
     }
 }
 
@@ -136,8 +138,8 @@ function collisionPlatform(platform, player)
 {
     if(player.position.y + player.height <= platform.position.y && 
         player.position.y + player.height + player.velocity.y >= platform.position.y && 
-        player.position.x + player.width  >= platform.position.x +50 && 
-        player.position.x  <= platform.width + platform.position.x -50){
+        player.position.x + player.width  >= platform.position.x +55 && 
+        player.position.x  <= platform.width + platform.position.x -190){
   
         return true;
          
@@ -177,7 +179,7 @@ class Enemy {
     {  
        // this.position.x+=this.velocity.x
         this.updateHitBox();
-        this.erase();
+        this.dead();
         this.position.y += this.velocity.y;
         if(this.position.y + this.height + this.velocity.y <= canvas.height)
         {
@@ -197,22 +199,28 @@ class Enemy {
             width:100
         }
     }
-    erase()
+    dead()
     {
-        enemies.forEach(enemie=> {
-            if(collisionPlatform(enemie,player))
+        enemies.forEach(enemie =>
             {
                 
-                {
-                c.clearRect(this.position.x, this.position.y,this.width,this.height)
-                player.velocity.y+=gravity
-            }
+            
+            if(collisionEnemy(player,enemie))
+            {
+                
+                this.position.x=-1250;
+                this.position.y=-950;
+                player.velocity.y +=gravity
+                totalPoints += 10;
+            
         }
         })
+    }
+}
        
 
-}
-}
+
+
 
 const player = new Player(
     {
@@ -245,10 +253,10 @@ const enemies = [new Enemy({x:754,y:825}) /*, new Enemy({x:658,y:518})*/]
 
 function collisionEnemy(player,enemy)
 {
-    if(player.hitbox.position.x+player >= enemy.hitbox.position.x && 
-        player.hitbox.position.x <= enemy.hitbox.position.x + enemy.hitbox.width
-        && player.hitbox.position.y+player.hitbox.height>= enemy.hitbox.position.y &&
-        player.hitbox.position.y <= enemy.hitbox.position.y+enemy.hitbox.height)
+    if(player.position.y + player.height <=enemy.position.y && 
+        player.position.y + player.height + player.velocity.y >= enemy.position.y && 
+        player.position.x + player.width  >= enemy.position.x && 
+        player.position.x  <= platform.width + enemy.position.x )
     {
         return true;
     }
@@ -273,37 +281,30 @@ function animate() //animation loop
      du navigateur. 
      Cette méthode prend comme argument une fonction de rappel qui sera 
      appelée avant le rafraîchissement du navigateur.  */
-   /*c.fillStyle="white";
-    c.fillRect(0,0,canvas.width,canvas.height) */
-    c.clearRect(0,0,canvas.width,canvas.height);
+    c.fillStyle="white";
+    c.fillRect(0,0,canvas.width,canvas.height) 
+   // c.drawImage(fond,0,0,canvas.width,canvas.height);
     player.draw()
     player.update();
-    platforms.forEach(platform=>{
-        platform.draw()
-    })
     enemies.forEach(enemie => {
         enemie.draw(); 
     })
-    c.fillStyle="black";
-    c.fillRect(0,936,2050,2);
+    platforms.forEach(platform=>{
+        platform.draw()
+    })
+   
     enemies.forEach(enemie => {
         enemie.updateEnemy();
     })
+    
     enemies.forEach(enemie => {
-        if(collisionEnemy(player,enemie)==true)
+        if(collisionPlatform(enemie,player)==true)
         {
-            console.log("collision");
+            enemie.dead();
         }
-        else console.log("no touch");
     })
-    c.fillText(player.position.x,650,200);
-    for(var i=0;i<=1;i++)
-    {
-    enemies.forEach(enemie => {
-    c.fillText(enemie.position.x,800+i*150,300);})
-    }
     player.velocity.x=0;
-    if(keys.ArrowRight.pressed && player.position.x%8==0)
+    if(keys.ArrowRight.pressed && player.position.x%11==0)
             {
                 totalPoints += 1; 
             }
@@ -322,7 +323,7 @@ function animate() //animation loop
         if(keys.ArrowRight.pressed)
         {
             platforms.forEach(platform=>{
-                platform.position.x -=3;
+                platform.position.x -=4;
             })
         
             
@@ -330,7 +331,7 @@ function animate() //animation loop
         else if(keys.ArrowLeft.pressed)
         {
             platforms.forEach(platform=>{
-                platform.position.x +=3;
+                platform.position.x +=4;
             })
             
         }
@@ -342,13 +343,7 @@ function animate() //animation loop
         {
             player.velocity.y=0; 
         }
-        enemies.forEach(enemie=> {
-            if(collisionPlatform(enemie,player))
-            {
-                enemie.erase();
-                player.velocity.y=0;
-            }
-        })
+
     
 })
 

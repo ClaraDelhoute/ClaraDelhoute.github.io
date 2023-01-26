@@ -8,10 +8,10 @@ body {
     width: 100%;
     background-color: rgb(136, 172, 223);
     
-    background-image: url("gif-neige.gif") ,url("fond_hiver.png");
+    background-image: url("../photo/gif-neige.gif") ,url("../photo/fond_hiver.png");
     background-repeat: no-repeat, no-repeat;
     background-position: 50%;
-    background-size: 1900px 1100px;
+    background-size: 1950px 1100px;
     
 }
 
@@ -53,7 +53,7 @@ li {
 
 
 .classnav .panneau{
-    background-image: url("SnowSign.png");
+    background-image: url("../photo/SnowSign.png");
     background-position: center;
     background-repeat: no-repeat;
     background-size: 20% contain;
