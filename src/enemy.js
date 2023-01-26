@@ -1,43 +1,72 @@
-
-var image=document.getElementById("image"); 
 class Enemy {
-    constructor(position)
+    constructor({x,y})
     {
-        this.position=position; 
-        this.velocity = {
-            x : 0, 
-            y : 1, 
+        this.position = {
+            x,
+            y,
+        }
+        this.velocity = 
+        {
+            x:-0.5,
+            y:0,
         }
         this.height=100;
+        this.width=100; 
+        this.hitbox= {
+            position : 
+            {
+                x: this.position.x, 
+                y: this.position.y,
+            },
+            height:10, 
+            width:10
+        }
     }
     draw()
     {
-       var date= Date.now(); 
-        while(Date.now() - date <70)
+        c.fillStyle="red"; 
+        c.fillRect(this.position.x, this.position.y,this.width,this.height-5);
+    }
+    updateEnemy()
+    {  
+       // this.position.x+=this.velocity.x
+        this.updateHitBox();
+        this.dead();
+        this.position.x += this.velocity.x;
+        this.position.y += this.velocity.y;
+        if(this.position.y + this.height + this.velocity.y <= canvas.height)
         {
-
+            this.velocity.y += gravity; 
         }
-       i++
-        c.drawImage(image,i*45+i*75,0,75,54,this.position.x,this.position.y,200,200);
-       if(i==4)
-       {
-        i=0;
-       }
+        else this.velocity.y=0
     }
-}
-
-const enemy = new Enemy(
+    updateHitBox()
     {
-        x : 750, 
-        y : 736,
+        this.hitbox= {
+            position : 
+            {
+                x : this.position.x, 
+                y :this.position.y+40,
+            },
+            height:100, 
+            width:100
+        }
     }
-)
-
-
-function animateEnemy()
-{
-    window.requestAnimationFrame(animate); 
-    c.fillStyle='white'; 
-    c.fillRect(0,0,canvas.width,canvas.height); 
-    enemy.draw; 
+    dead()
+    {
+        enemies.forEach(enemie =>
+            {
+                
+            
+            if(collisionEnemy(player,enemie))
+            {
+                
+                this.position.x=-1250;
+                this.position.y=-950;
+                player.velocity.y +=gravity
+                player.totalPoints += 10;
+            
+        }
+        })
+    }
 }
