@@ -299,11 +299,10 @@ function animate() //animation loop
     
     enemies.forEach(enemie => {
         if(collisionPlatform(enemie,player)==true)
-        {
-            enemie.dead();
-        }
+
+    enemies.forEach(enemie => {
+        enemie.updateEnemy();
     })
-    player.velocity.x=0;
     if(keys.ArrowRight.pressed && player.position.x%11==0)
             {
                 totalPoints += 1; 
