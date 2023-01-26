@@ -284,7 +284,7 @@ function animate() //animation loop
     c.fillStyle="white";
     c.fillRect(0,0,canvas.width,canvas.height) 
    // c.drawImage(fond,0,0,canvas.width,canvas.height);
-    player.draw()
+    player.draw();
     player.update();
     enemies.forEach(enemie => {
         enemie.draw(); 
@@ -299,7 +299,10 @@ function animate() //animation loop
     
     enemies.forEach(enemie => {
         if(collisionPlatform(enemie,player)==true)
-
+        {
+            enemie.dead(); 
+        }
+    })
     enemies.forEach(enemie => {
         enemie.updateEnemy();
     })
