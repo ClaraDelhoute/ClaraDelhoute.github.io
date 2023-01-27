@@ -1,17 +1,9 @@
 const canvas=document.querySelector("canvas"); //Selectionne la balise canvas 
 const c=canvas.getContext("2d"); // retourne un contexte de dessin sur le canevas
-canvas.width=1850; //Dimension du canvas
-canvas.height=940; //Dimension du canvas
-//var img2=document.getElementById("img2");
+canvas.width=1890; //Dimension du canvas
+canvas.height=930; //Dimension du canvas
+
 const gravity=0.6; //Decription de la gravité du jeu
-//Création de la classe joueur
-const player = new Player(
-    {
-        x : 1,
-        y: 0,
-        
-    },
-)
 
 const keys = //définition des clés du clavier
 {
@@ -27,13 +19,22 @@ const keys = //définition des clés du clavier
         pressed : false
     },
 }
-const fond = new Fond()
-const platforms = [new Plateform({x:256,y: 750}),new Plateform({x:498,y:520}),new Plateform({x:898,y:656})]
 
-const enemies = [new Enemy({x:754,y:825}) /*, new Enemy({x:658,y:518})*/]
+const player = new Player(
+    {
+        x : 1,
+        y: 0,
+        
+    },
+)
 
+
+const enemies = [new Enemy({x:900,y:825}), new Enemy({x:1320,y:400})]
+//alea()
+var compteur=0;
 function animate() //animation loop
 {   
+    
     window.requestAnimationFrame(animate);
     /*
      indique au navigateur qu'on souhaite exécuter une animation 
@@ -42,68 +43,112 @@ function animate() //animation loop
      du navigateur. 
      Cette méthode prend comme argument une fonction de rappel qui sera 
      appelée avant le rafraîchissement du navigateur.  */
-    /*c.fillStyle="white";
-    c.fillRect(0,0,canvas.width,canvas.height) */
-    fond.draw(canvas.width,canvas.height);
-    fond.update();
-    player.draw();
+    c.fillStyle="white";
+    c.fillRect(0,0,canvas.width,canvas.height);
+    gameObjects.forEach(Object =>
+        {
+            Object.draw();
+            Object.update();
+        
+        });
     player.update();
+    player.draw();
     enemies.forEach(enemie => {
         enemie.draw(); 
     })
     platforms.forEach(platform=>{
         platform.draw()
     })
-   
     enemies.forEach(enemie => {
         enemie.updateEnemy();
     })
     enemies.forEach(enemie => {
-        if(collisionPlatform(enemie,player)==true)
-        {
-            enemie.dead(); 
-        }
+        enemie.dead();
     })
-    enemies.forEach(enemie => {
-        enemie.updateEnemy();
-    })
-    if(keys.ArrowRight.pressed && player.position.x%11==0)
+        flyArray.forEach(FlyB =>
             {
-                player.totalPoints += 1; 
+                FlyB.draw();
+                FlyB.update();
+                
+            });
+            gameFrame++;
+    
+            flyArray.forEach(FlyB =>
+                {
+                    gameOver(player,FlyB)
+                    
+                });     
+    if(keys.ArrowRight.pressed)
+            {
+                compteur++;
+                if(compteur==30)
+                {
+                    player.totalPoints ++;
+                    compteur=0;
+                }
             }
-    if(keys.ArrowLeft.pressed && player.position.x>100)
+    if(keys.ArrowLeft.pressed)
     {
         player.velocity.x = -3; 
     }
-    else if(keys.ArrowRight.pressed && player.position.x<800)
+    else if(keys.ArrowRight.pressed && player.position.x>700)
         {
-            player.velocity.x = 3;
-            
-        }
-    else 
-    {
-        if(keys.ArrowRight.pressed)
-        {
+            player.velocity.x=0;
             platforms.forEach(platform=>{
-                platform.position.x -=4;
-                fond.velocity.x = -4;
-            })  
-        }
-        else if(keys.ArrowLeft.pressed)
-        {
-            platforms.forEach(platform=>{
-                platform.position.x +=4;
-            })  
-        }
+                platform.position.x -=4.5;
+        })
     }
+    /*platforms.forEach(platform =>
+        {
+            if(platform.position.x <0)
+            {
+                let indexPlatform=platforms.indexOf(platform)
+                platforms.delete(platform)
+                ajoute(7000,platforms[indexPlatform],500,120);
+            }; 
+            
+        })*/
+       
+    /*else 
+    {
+        if(keys.ArrowRight.pressed && player.position.x >950)
+        {
+            platforms.forEach(platform=>{
+                platform.position.x -=3;
+                player.velocity.x= 2
+            }
+
+            )  
+        }  */
     //collision with platform
     platforms.forEach((platform) =>  {
         if(collisionPlatform(platform,player))
         {
             player.velocity.y=0; 
         }  
+        if(collisionPlatformOnBottom(platform,player))
+        {
+            player.position.y = platform.position.y +gravity;
+        }
 })    
+platforms.forEach((platform) =>  {
+    enemies.forEach(enemie=>
+        {
+            if(collisionPlatform(platform,enemie))
+            {
+                enemie.velocity.y=0;
+            }
+        })  
+
+})
+enemies.forEach(enemie => 
+    {
+        
+        gameOver(enemie,player);
+    })
 }
+
+
 animate() //appelle de la fonction animate()
 
 window.addEventListener("keydown", (event) => {  //attache une fonction à appeler chaque fois que l'évènement spécifié est envoyé à la cible.
@@ -112,17 +157,29 @@ window.addEventListener("keydown", (event) => {  //attache une fonction à appel
     {
         case "ArrowLeft" :
             keys.ArrowLeft.pressed= true;
-            player.velocity.x =-3;
-        break; 
-        case "ArrowRight" : 
-            keys.ArrowRight.pressed= true
+            if(player.position.x<200)
+            {
             player.velocity.x =3;
-        break; 
+            
+            }
+            gamespeed = 0;
+            break; 
+        case "ArrowRight" : 
+            keys.ArrowRight.pressed= true;
+            if(player.position.x > 700)
+            {
+                player.velocity.x =0
+            
+            }
+            else player.velocity.x =3;
+            gamespeed = 0.5;
+
+            break; 
         case " " : 
             if(player.velocity.y == 0)
             {
                 keys.Space.pressed=true;
-                player.velocity.y=-20;
+                player.velocity.y=-20.4;
             }
             else
             {
@@ -138,11 +195,13 @@ window.addEventListener("keyup", (event) => {
     {
         case "ArrowLeft" :
             keys.ArrowLeft.pressed= false;
-            player.velocity.x = 0;
+            player.velocity.x=0;
+            gamespeed = 0;
         break; 
         case "ArrowRight" : 
             keys.ArrowRight.pressed= false;
-            player.velocity.x = false; 
+            player.velocity.x=0;
+            gamespeed = 0;
         break; 
         case " " : 
             keys.Space.pressed=false;
