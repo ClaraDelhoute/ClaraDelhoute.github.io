@@ -1,3 +1,8 @@
+var enemieKill = 0;
+function alea(max,min)
+{
+    return   Math.floor(Math.random() * (max - min + 1)) + min;
+}
 class Enemy {
     constructor({x,y})
     {
@@ -7,7 +12,7 @@ class Enemy {
         }
         this.velocity = 
         {
-            x:-0.5,
+            x:-1,
             y:0,
         }
         this.height=100;
@@ -21,24 +26,25 @@ class Enemy {
             height:10, 
             width:10
         }
+        
     }
+  
     draw()
     {
         c.fillStyle="red"; 
         c.fillRect(this.position.x, this.position.y,this.width,this.height-5);
     }
     updateEnemy()
-    {  
-       // this.position.x+=this.velocity.x
-        this.updateHitBox();
-        this.dead();
-        this.position.x += this.velocity.x;
+    {   this.updateHitBox();
+        this.repop();
+        this.position.x+=this.velocity.x
         this.position.y += this.velocity.y;
         if(this.position.y + this.height + this.velocity.y <= canvas.height)
         {
             this.velocity.y += gravity; 
         }
         else this.velocity.y=0
+       
     }
     updateHitBox()
     {
@@ -52,21 +58,52 @@ class Enemy {
             width:100
         }
     }
-    dead()
+    repop()
     {
-        enemies.forEach(enemie =>
-            {
-                
-            
-            if(collisionEnemy(player,enemie))
-            {
-                
-                this.position.x=-1250;
-                this.position.y=-950;
-                player.velocity.y +=gravity
-                player.totalPoints += 10;
-            
+        if(this.position.x <0)
+        {
+            this.position.x=player.position.x+Math.floor(Math.random()*(2500-1500+1)+1500)
         }
-        })
     }
+    dead()
+    {       enemies.forEach(enemie=>
+        {
+            if(collisionEnemyOnTop(player,enemie))
+            {
+                console.log(enemies.indexOf(enemie));
+                var index=enemies.indexOf(enemie)
+                enemies[index].position.x +=1500;
+                enemies[index].velocity.x -= 1;
+                enemies[index].position.y = enemies[index].position.y;
+                player.velocity.y += gravity
+                player.totalPoints += 10;
+                enemieKill += 1; 
+              
+        } 
+        
+    })
+}
+    acceleration()
+    {
+        if(player.totalPoints%101==true)
+        {
+            enemies.forEach(enemie =>
+                {
+                    enemie.velocity.x += 1;
+                })
+        }
+    }
+
+}
+
+function alea()
+{
+    let i; 
+    for(i=0;i<10;i++)
+    {
+        positionOfX= Math.floor((Math.random()*1000-500+1)+500);
+        otherEnemy=new Enemy({x: positionOfX, y : 930});
+        enemies.push(otherEnemy);
+    }
+    console.log(enemies);
 }
