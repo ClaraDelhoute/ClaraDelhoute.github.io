@@ -61,6 +61,7 @@ function animate() //animation loop
     })
     platforms.forEach(platform=>{
         platform.draw()
+        platform.update()
     })
     enemies.forEach(enemie => {
         enemie.updateEnemy();
@@ -99,11 +100,11 @@ function animate() //animation loop
     {
         player.velocity.x = -3; 
     }
-    else if(keys.ArrowRight.pressed && player.position.x>700)
+    else if(keys.ArrowRight.pressed && player.position.x>850)
         {
-            player.velocity.x=0;
+            player.velocity.x =0; 
             platforms.forEach(platform=>{
-                platform.position.x -=4.5;
+                platform.position.x -=2.5;
         })
     }
     /*platforms.forEach(platform =>
@@ -175,7 +176,7 @@ window.addEventListener("keydown", (event) => {  //attache une fonction à appel
             break; 
         case "ArrowRight" : 
             keys.ArrowRight.pressed= true;
-            if(player.position.x > 700)
+            if(player.position.x > 850)
             {
                 player.velocity.x =0
             

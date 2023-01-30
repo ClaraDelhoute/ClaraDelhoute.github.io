@@ -8,23 +8,25 @@ class Plateform {
         x,
         y,
         }
-        this.width=370;
+        this.width=370+Math.floor(Math.random()*(75-26)+26);
         this.height=60;
+    }
+    update()
+    {
+        this.repop()
     }
     draw()
     {
         
         c.drawImage(imagePlatform,this.position.x,this.position.y,this.width,this.height);
     }
+    repop()
+    {   if(this.position.x<-150)
+        this.position.x=player.position.x+2100;
+    }
 } 
 
-function ajoute(maxX,minX,maxH,minH)
-{
-    xPlatform=Math.floor(Math.random()*(maxX-minY+1)+minX);
-    yPlatform=Math.floor(Math.random()*(maxH-minH+1)+minH);
-    const platform= new Plateform({x:xPlatform,y:yPlatform});
-    platforms.push(platform);
-}
+
 
 const platforms = [
     new Plateform({x:256,y: 750})
