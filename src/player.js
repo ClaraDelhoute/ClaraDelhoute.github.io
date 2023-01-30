@@ -1,4 +1,8 @@
 var img = document.getElementById("img"); 
+
+const imgJump = new Image();
+imgJump.src ="photo/jump.png";
+
 const cycleLoop=[0,1,2,3,4,5,6,7,8];
 const scale=0.8;
 const width=138;
@@ -42,10 +46,6 @@ class Player {
            
         }
            
-           
-        
-        
-        
         else if (keys.ArrowRight.pressed) {
           /*  c.drawImage(img,currentLoopIndex*95+currentLoopIndex*33,0,130,height,this.position.x,this.position.y,scaleWidth,scaleWidth);
         currentLoopIndex++;
@@ -57,8 +57,13 @@ class Player {
         else {
             currentLoopIndex =0;
         }
+        if(keys.Space.pressed){
+            c.drawImage(imgJump,currentLoopIndex*95+currentLoopIndex*32,0,138,height,this.position.x,this.position.y,scaleWidth,scaleHeight);
+            
+
+        }else{
         c.drawImage(img,currentLoopIndex*95+currentLoopIndex*33,0,138,height,this.position.x,this.position.y,scaleWidth,scaleHeight);
-        currentLoopIndex++;
+        currentLoopIndex++;}
         if(currentLoopIndex>= cycleLoop.length)
              {
                 currentLoopIndex = 0; 

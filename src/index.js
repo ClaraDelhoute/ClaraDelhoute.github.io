@@ -51,8 +51,11 @@ function animate() //animation loop
             Object.update();
         
         });
+        vie1.draw();
     player.update();
     player.draw();
+    
+
     enemies.forEach(enemie => {
         enemie.draw(); 
     })
@@ -65,6 +68,7 @@ function animate() //animation loop
     enemies.forEach(enemie => {
         enemie.dead();
     })
+    
         flyArray.forEach(FlyB =>
             {
                 FlyB.draw();
@@ -73,6 +77,10 @@ function animate() //animation loop
             });
             gameFrame++;
     
+
+
+           
+
             flyArray.forEach(FlyB =>
                 {
                     gameOver(player,FlyB)
@@ -146,6 +154,7 @@ enemies.forEach(enemie =>
         
         gameOver(enemie,player);
     })
+    
 }
 
 

@@ -18,5 +18,6 @@ function gameOver(player,enemie)
     if(collisionBetweenEnemyAndPlayer(enemie,player)==true || ((collisionBetweenEnemyAndPlayer)==true &&(keys.ArrowRight.pressed || keys.ArrowLeft.pressed)))
     {
         c.fillText("GAME OVER",450,450); 
+        vie1.updatelife();
     }
 }

@@ -1,4 +1,9 @@
+const monster = new Image();
+monster.src ="photo/monster2.1.png";
+
 var enemieKill = 0;
+
+
 function alea(max,min)
 {
     return   Math.floor(Math.random() * (max - min + 1)) + min;
@@ -6,6 +11,10 @@ function alea(max,min)
 class Enemy {
     constructor({x,y})
     {
+        this.spriteWidth = 303.52;
+    this.spriteHeight = 198;
+    this.frame = 0;
+    
         this.position = {
             x,
             y,
@@ -15,36 +24,43 @@ class Enemy {
             x:-1,
             y:0,
         }
-        this.height=100;
-        this.width=100; 
+        this.height=this.spriteHeight/2;
+        this.width=  this.spriteWidth /2; 
+        
         this.hitbox= {
             position : 
             {
                 x: this.position.x, 
                 y: this.position.y,
             },
-            height:10, 
-            width:10
+          width : 10,
+          height : 10,
         }
         
     }
   
     draw()
     {
-        c.fillStyle="red"; 
-        c.fillRect(this.position.x, this.position.y,this.width,this.height-5);
+        
+       c.drawImage(monster,this.frame * this.spriteWidth, 0, this.spriteWidth , this.spriteHeight  , this.position.x, this.position.y, this.width, this.height);
+            
     }
+            
     updateEnemy()
-    {   this.updateHitBox();
+    
+    { 
+       
         this.repop();
-        this.position.x+=this.velocity.x
         this.position.y += this.velocity.y;
+        this.position.x += this.velocity.x;
+        
+        this.frame >=20 ? this.frame = 0 : this.frame++;
         if(this.position.y + this.height + this.velocity.y <= canvas.height)
         {
             this.velocity.y += gravity; 
         }
         else this.velocity.y=0
-       
+        
     }
     updateHitBox()
     {
@@ -94,8 +110,8 @@ class Enemy {
         }
     }
 
-}
 
+}
 function alea()
 {
     let i; 
