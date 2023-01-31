@@ -38,7 +38,7 @@ class Player {
     draw()
     {
         var date = Date.now();
-        while (Date.now() - date <25) {
+        while (Date.now() - date <30) {
 
         }
       
@@ -97,7 +97,7 @@ class Player {
         this.hitbox= {
             position : 
             {
-                x: this.position.x+15, 
+                x: this.position.x+ 15, 
                 y:this.position.y + 15,
             },
             height:80, 
