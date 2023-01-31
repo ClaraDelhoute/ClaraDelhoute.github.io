@@ -1,9 +1,9 @@
 const canvas=document.querySelector("canvas"); //Selectionne la balise canvas 
 const c=canvas.getContext("2d"); // retourne un contexte de dessin sur le canevas
 canvas.width=1890; //Dimension du canvas
-canvas.height=930; //Dimension du canvas
+canvas.height=935; //Dimension du canvas
 
-const gravity=0.6; //Decription de la gravité du jeu
+const gravity=0.5; //Decription de la gravité du jeu
 
 const keys = //définition des clés du clavier
 {
@@ -29,12 +29,12 @@ const player = new Player(
 )
 
 
-const enemies = [new Enemy({x:900,y:825}), new Enemy({x:1320,y:400})]
+const enemies = [new Enemy({x:900,y:820}), new Enemy({x:1320,y:400})]
 //alea()
 var compteur=0;
 function animate() //animation loop
 {   
-    
+    montePlatform();
     window.requestAnimationFrame(animate);
     /*
      indique au navigateur qu'on souhaite exécuter une animation 
@@ -58,18 +58,14 @@ function animate() //animation loop
 
     enemies.forEach(enemie => {
         enemie.draw(); 
-    })
+        enemie.updateEnemy();
+        enemie.dead();
+    }) 
     platforms.forEach(platform=>{
         platform.draw()
         platform.update()
     })
-    enemies.forEach(enemie => {
-        enemie.updateEnemy();
-    })
-    enemies.forEach(enemie => {
-        enemie.dead();
-    })
-    
+  
         flyArray.forEach(FlyB =>
             {
                 FlyB.draw();
@@ -77,11 +73,6 @@ function animate() //animation loop
                 
             });
             gameFrame++;
-    
-
-
-           
-
             flyArray.forEach(FlyB =>
                 {
                     gameOver(player,FlyB)
@@ -102,43 +93,21 @@ function animate() //animation loop
     }
     else if(keys.ArrowRight.pressed && player.position.x>850)
         {
-            player.velocity.x =0; 
+            player.velocity.x =0.1; 
             platforms.forEach(platform=>{
-                platform.position.x -=2.5;
+                platform.position.x -=2;
         })
     }
-    /*platforms.forEach(platform =>
-        {
-            if(platform.position.x <0)
-            {
-                let indexPlatform=platforms.indexOf(platform)
-                platforms.delete(platform)
-                ajoute(7000,platforms[indexPlatform],500,120);
-            }; 
-            
-        })*/
-       
-    /*else 
-    {
-        if(keys.ArrowRight.pressed && player.position.x >950)
-        {
-            platforms.forEach(platform=>{
-                platform.position.x -=3;
-                player.velocity.x= 2
-            }
-
-            )  
-        }  */
     //collision with platform
     platforms.forEach((platform) =>  {
         if(collisionPlatform(platform,player))
         {
             player.velocity.y=0; 
         }  
-        if(collisionPlatformOnBottom(platform,player))
+        /*if(collisionPlatformOnBottom(platform,player))
         {
-            player.position.y = platform.position.y +gravity;
-        }
+            player.velocity.y+=gravity;
+        }*/
 })    
 platforms.forEach((platform) =>  {
     enemies.forEach(enemie=>
@@ -156,6 +125,7 @@ enemies.forEach(enemie =>
         gameOver(enemie,player);
     })
     
+    //escendPlatform(platforms[2].position.y);
 }
 
 
@@ -178,18 +148,18 @@ window.addEventListener("keydown", (event) => {  //attache une fonction à appel
             keys.ArrowRight.pressed= true;
             if(player.position.x > 850)
             {
-                player.velocity.x =0
+                player.velocity.x =0.1;
             
             }
             else player.velocity.x =3;
-            gamespeed = 0.5;
+            gamespeed = 0.4;
 
             break; 
         case " " : 
             if(player.velocity.y == 0)
             {
                 keys.Space.pressed=true;
-                player.velocity.y=-20.4;
+                player.velocity.y=-20;
             }
             else
             {
