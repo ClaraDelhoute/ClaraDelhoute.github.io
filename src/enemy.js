@@ -1,7 +1,7 @@
 const monster = new Image();
 monster.src ="photo/monster2.1.png";
 
-var enemieKill = 0;
+var enemieKill = 1;
 
 
 function alea(max,min)
@@ -21,11 +21,11 @@ class Enemy {
         }
         this.velocity = 
         {
-            x:-1,
+            x:-3.75,
             y:0,
         }
         this.height=this.spriteHeight/2;
-        this.width=  this.spriteWidth /2; 
+        this.width= this.spriteWidth /2; 
         
         this.hitbox= {
             position : 
@@ -42,7 +42,7 @@ class Enemy {
     draw()
     {
         
-       c.drawImage(monster,this.frame * this.spriteWidth, 0, this.spriteWidth , this.spriteHeight  , this.position.x, this.position.y, this.width, this.height);
+       c.drawImage(monster,this.frame * this.spriteWidth, 0, this.spriteWidth , this.spriteHeight  , this.position.x, this.position.y+1.5, this.width, this.height);
             
     }
             
@@ -76,9 +76,9 @@ class Enemy {
     }
     repop()
     {
-        if(this.position.x <0)
+        if(this.position.x <-304)
         {
-            this.position.x=player.position.x+Math.floor(Math.random()*(2500-1500+1)+1500)
+            this.position.x=player.position.x+Math.floor(Math.random()*(2900-1900+1)+1900)
         }
     }
     dead()
@@ -86,32 +86,26 @@ class Enemy {
         {
             if(collisionEnemyOnTop(player,enemie))
             {
-                console.log(enemies.indexOf(enemie));
-                var index=enemies.indexOf(enemie)
-                enemies[index].position.x +=1500;
-                enemies[index].velocity.x -= 1;
-                enemies[index].position.y = enemies[index].position.y;
-                player.velocity.y += gravity
-                player.totalPoints += 10;
-                enemieKill += 1; 
-              
-        } 
-        
+                var index=enemies.indexOf(enemie);
+                enemies[index].position.x =player.position.x+Math.floor(Math.random()*(2900-1851)+1850);
+                enemies[index].position.y = 750;
+                player.velocity.y += gravity;
+                player.totalPoints += 10;      
+                enemieKill++;
+                if(enemieKill%3==0)
+                {
+                    enemies.forEach(enemie=> enemie.velocity.x-=0.75)
+                }
+             }
     })
 }
-    acceleration()
-    {
-        if(player.totalPoints%101==true)
-        {
-            enemies.forEach(enemie =>
-                {
-                    enemie.velocity.x += 1;
-                })
-        }
-    }
-
-
 }
+
+    
+
+    
+
+
 function alea()
 {
     let i; 
