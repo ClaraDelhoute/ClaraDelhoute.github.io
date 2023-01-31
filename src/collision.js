@@ -11,9 +11,10 @@ function collisionEnemyOnTop(player,enemy)
 
 function collisionPlatformOnBottom(platform,player)
 {
-    if(player.position.y+player.height == platform.position.y &&
-        player.position.x+width<=platform.position.x+platform.width &&
-        player.position.x <= platform.position.x+platform.width)
+    if(player.position.y+player+height == platform.position.y &&
+        player.position.y<canvas.height &&
+        player.position.x+player.width>=platform.position.x &&
+        player.position.x <= platform.position.x+platform.width )
         {
             return true; 
         }
@@ -24,7 +25,8 @@ function collisionPlatform(platform, player)
     if(player.position.y + player.height <= platform.position.y && 
         player.position.y + player.height + player.velocity.y >= platform.position.y && 
         player.position.x + player.width  >= platform.position.x +55  && 
-        player.position.x  <= platform.width + platform.position.x -platform.width/2)
+        player.position.x  <= platform.width + platform.position.x - platform.width/1.75
+        )
         {
         return true;   
         }
