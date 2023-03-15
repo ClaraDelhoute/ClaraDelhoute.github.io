@@ -1,3 +1,5 @@
+var collisionEnemie = false; 
+
 function collisionEnemyOnTop(player,enemy)
 {
     if(player.position.y + player.height <=enemy.position.y && 
@@ -7,27 +9,33 @@ function collisionEnemyOnTop(player,enemy)
     {
         return true;
     }
-}
-
-function collisionPlatformOnBottom(platform,player)
+} //cette fonction permet au joueur d'éliminer un ennemie
+function collisionBetweenEnemyAndPlayer(enemie,player)
 {
-    if(player.position.y+player+height == platform.position.y &&
-        player.position.y<canvas.height &&
-        player.position.x+player.width>=platform.position.x &&
-        player.position.x <= platform.position.x+platform.width )
+    if( player.position.x >= enemie.position.x-enemie.width/2
+        && player.position.x <=enemie.position.x+enemie.width/2)
+        {
+        if(player.position.y <= enemie.position.y+1.5+enemie.height/2
+            && player.position.y+player.height >=enemie.position.y)  
         {
             return true; 
         }
 }
+   else return false; 
 
+} //fonction qui détecte la collission entre un ennemmie et joueur pour effectuer la fonction de gameOver
 function collisionPlatform(platform, player)
 {
     if(player.position.y + player.height <= platform.position.y && 
-        player.position.y + player.height + player.velocity.y >= platform.position.y && 
-        player.position.x + player.width  >= platform.position.x +55  && 
-        player.position.x  <= platform.width + platform.position.x - platform.width/1.75
+        player.position.y + player.height +player.velocity.y+0.5 >= platform.position.y&& 
+        player.position.x + player.width  >= platform.position.x + 60 && 
+        player.position.x  <= platform.width/2 + platform.position.x - 3 
         )
         {
-        return true;   
+        return true;  
+       
         }
-} 
+    else return false;
+}//fonction collision entre plateformes et joueur pour permettre à un joueur de marcher sur une plateforme. 
+
+

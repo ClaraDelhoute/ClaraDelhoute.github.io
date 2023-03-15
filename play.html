@@ -5,15 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SuperPingouin</title>
-    
-
-   
+    <link rel="stylesheet" href="style/play.css"/>
 </head>
 <body bgcolor="turquoise">
 <a id="play"></a>
-
-
-
 <canvas class="canvas" id="canvas">
     
     <img src="photo/marche_pingouin.png" id="img" />
@@ -21,23 +16,41 @@
     <!--<img src="C:/Users/clara/OneDrive/Images/volant.png" id="image" /> -->
     <img src="photo/fond_sprite.png" id="fond" />
     <img src="photo/platform.png" id="platform" />
+    <img src="photo/marche_pingouin_gauche (2).png" id="marchegauche"/>
 </canvas>
 
-<script src="src/constante.js" type="text/javascript"></script>
 <script src="src/gameOver.js" type="text/javascript"></script>
 <script src="src/player.js" type="text/javascript"></script>
-<script src="src/sol.js" type="text/javascript"></script>
 <script src="src/fond.js" type="text/javascript"></script>
+<script src="src/fond2.js" type="text/javascript"></script>
+<script src="src/fond3.js" type="text/javascript"></script>
+<script src="src/fond4.js" type="text/javascript"></script>
 <script src="src/vie.js" type="text/javascript"></script>
 <script src="src/collision.js" type="text/javascript"></script>
 <script src="src/enemy.js" type="text/javascript"></script>
 <script src="src/enemy2.js" type="text/javascript"> </script>
 <script src="src/platform.js" type="text/javascript"></script>
 <script src="src/index.js" type="text/javascript"></script>
-
-
-
+<div id="gameOver" class="modal">
+    <div class="modal_content">
+        <h1>Game Over</h1>
+    <form action="createCookie.php" method="post">
+        <label for="pseudo">Insérer votre pseudo :</label>
+        <input type="text" name="pseudo" value="">
+        <br/>
+        <div class="button">
+        <a href="play.html#play" target="_parent"><input type="button" name="RETRY" value="RETRY" id="retry"/> </a>
+        <a href="index.html#retour" target="_parent"><input type="button" name="FERMER" value="MENU" id="fermer" /> </a>
+        </div>
+    </form>
+    </div>
+</div>
+</dialog>
 </body>
 </html>
+
+
+
+
 
 

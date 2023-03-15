@@ -1,0 +1,35 @@
+
+
+html,body {
+    font-family: 'Raleway', sans-serif;
+    padding: 1em 2em;
+    font-size: 18px;
+    background: #222;
+    color: #aaa
+  }
+  
+  h1,h2 {
+    text-align: center;
+    font-weight: 200;
+    margin: 0.4em 0;
+  }
+  h1 { font-size: 3.5em;
+padding-left: 15px;
+padding-right: 15px; }
+  h2 {
+    color: #888;
+    font-size: 2em;
+  }
+
+  .wrap
+{
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+a 
+{
+    font-size: 15pt;
+    text-decoration: none;
+    color:rgb(136, 172, 223);
+}

@@ -42,7 +42,7 @@ class Enemy {
     draw()
     {
         
-       c.drawImage(monster,this.frame * this.spriteWidth, 0, this.spriteWidth , this.spriteHeight  , this.position.x, this.position.y+1.5, this.width, this.height);
+       c.drawImage(monster,this.frame * this.spriteWidth, 0, this.spriteWidth , this.spriteHeight  , this.position.x, this.position.y+1.5, this.width-5, this.height-5);
             
     }
             

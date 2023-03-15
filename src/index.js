@@ -4,7 +4,7 @@ canvas.width=1890; //Dimension du canvas
 canvas.height=935; //Dimension du canvas
 
 const gravity=0.5; //Decription de la gravité du jeu
-
+var jump = 0; 
 const keys = //définition des clés du clavier
 {
     ArrowRight:
@@ -28,14 +28,12 @@ const player = new Player(
     },
 )
 
-
 const enemies = [new Enemy({x:900,y:820}), new Enemy({x:1320,y:400})]
 //alea()
 var compteur=0;
 function animate() //animation loop
 {   
-    montePlatform();
-    window.requestAnimationFrame(animate);
+    requestAnimation = window.requestAnimationFrame(animate);
     /*
      indique au navigateur qu'on souhaite exécuter une animation 
      et demande que celui-ci exécute une fonction spécifique de mise à 
@@ -45,17 +43,43 @@ function animate() //animation loop
      appelée avant le rafraîchissement du navigateur.  */
     c.fillStyle="white";
     c.fillRect(0,0,canvas.width,canvas.height);
+    if(player.totalPoints<250){  
+
+     gameObjects2.forEach(Object2 =>
+        {
+            Object2.draw();
+            Object2.update();
+        
+        });
+
+}else if(player.totalPoints<500){
     gameObjects.forEach(Object =>
         {
             Object.draw();
             Object.update();
         
         });
-        vie1.draw();
+
+}else if (player.totalPoints<600){
+
+    gameObjects3.forEach(Object3 =>
+        {
+            Object3.draw();
+            Object3.update();
+        
+        });
+}else if (player.totalPoints>600){
+
+    gameObjects4.forEach(Object4 =>
+        {
+            Object4.draw();
+            Object4.update();
+        
+        });
+}
+    vie1.draw();
     player.update();
     player.draw();
-    
-
     enemies.forEach(enemie => {
         enemie.draw(); 
         enemie.updateEnemy();
@@ -70,13 +94,13 @@ function animate() //animation loop
             {
                 FlyB.draw();
                 FlyB.update();
+                FlyB.dead();
                 
             });
             gameFrame++;
             flyArray.forEach(FlyB =>
                 {
-                    gameOver(player,FlyB)
-                    
+                    collisionBetweenEnemyAndPlayer(FlyB,player);
                 });     
     if(keys.ArrowRight.pressed)
             {
@@ -93,43 +117,53 @@ function animate() //animation loop
     }
     else if(keys.ArrowRight.pressed && player.position.x>850)
         {
-            player.velocity.x =0.1; 
+            player.velocity.x =0; 
             platforms.forEach(platform=>{
                 platform.position.x -=2;
         })
     }
-    //collision with platform
+    //collision platforms/player
     platforms.forEach((platform) =>  {
-        if(collisionPlatform(platform,player))
+        if(collisionPlatform(platform,player) && collisionPlatform(platforms[2],player)==false)
         {
             player.velocity.y=0; 
         }  
-        /*if(collisionPlatformOnBottom(platform,player))
-        {
-            player.velocity.y+=gravity;
-        }*/
 })    
+//collision platforms/enemies
 platforms.forEach((platform) =>  {
     enemies.forEach(enemie=>
         {
             if(collisionPlatform(platform,enemie))
             {
-                enemie.velocity.y=0;
+                enemie.velocity.y=0
             }
         })  
 
 })
-enemies.forEach(enemie => 
-    {
-        
-        gameOver(enemie,player);
-    })
-    
-    //escendPlatform(platforms[2].position.y);
+if(collisionPlatform(platforms[2],player)==true)
+{
+    player.velocity.y = -dep;
 }
 
 
-animate() //appelle de la fonction animate()
+enemies.forEach(enemie => 
+    {
+     if(collisionBetweenEnemyAndPlayer(enemie,player))
+     {
+        collisionEnemie=true; 
+     }
+    })
+    montePlatform();
+    if(collisionEnemie==true)
+    {
+        finJeu=document.getElementById("gameOver");
+        finJeu.style.visibility="visible"; 
+        finJeu.style.opacity="1";
+        window.cancelAnimationFrame(requestAnimation);
+    }
+}
+animate()
+ //appelle de la fonction animate()
 
 window.addEventListener("keydown", (event) => {  //attache une fonction à appeler chaque fois que l'évènement spécifié est envoyé à la cible.
 
@@ -156,14 +190,11 @@ window.addEventListener("keydown", (event) => {  //attache une fonction à appel
 
             break; 
         case " " : 
-            if(player.velocity.y == 0)
+            if(jump==0 && (player.velocity.y==0 || player.velocity.y==-dep ))
             {
                 keys.Space.pressed=true;
-                player.velocity.y=-20;
-            }
-            else
-            {
-                player.velocity.y= player.velocity.y+gravity;
+                jump = 1; 
+                player.velocity.y =-20;
             }
         break; 
     }
@@ -184,7 +215,10 @@ window.addEventListener("keyup", (event) => {
             gamespeed = 0;
         break; 
         case " " : 
+            jump = 0; 
             keys.Space.pressed=false;
     }
 })
+
+
 

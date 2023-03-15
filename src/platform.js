@@ -8,7 +8,7 @@ class Plateform {
         x,
         y,
         }
-        this.width=370+Math.floor(Math.random()*(200-26)+26);
+        this.width=370+Math.floor(Math.random()*(200-26)+25);
         this.height=60;
     }
     update()
@@ -27,18 +27,22 @@ class Plateform {
 } 
 
 var deplace=1;
-dep=-1
+var dep=-0.5
 function montePlatform()
 {   
                 platforms[2].position.y -=dep;
                 if(platforms[2].position.y==200)
                 {
-                    dep=-1;
+                    dep=-0.5;
                    
                 }
                 if(platforms[2].position.y==760)
                 {
-                     dep=1;
+                     dep=0.5;
+                }
+                if(collisionPlatform(platforms[2],player))
+                {
+                    player.position.y+=dep; 
                 }
                 
  }

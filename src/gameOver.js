@@ -1,23 +1,9 @@
-function collisionBetweenEnemyAndPlayer(enemie,player)
-{
-    if( player.position.x >= enemie.position.x-92 
-        && player.position.x <=enemie.position.x+92)
-        {
-        if(player.position.y <= enemie.position.y+1.5+enemie.height)  
-        {
-            
-            return true;
-        }
-}
-   else return false; 
 
+
+function gameOver()
+{   
+
+
+      //("gameOver.html","_blank","width=200,height=200,top=470,left=780,menubar='no',toolbar='no',directories='no',location=no"); 
 }
 
-function gameOver(player,enemie)
-{
-    if(collisionBetweenEnemyAndPlayer(enemie,player)==true)
-    {
-        c.fillText("GAME OVER",450,450); 
-        vie1.updatelife();
-    }
-}

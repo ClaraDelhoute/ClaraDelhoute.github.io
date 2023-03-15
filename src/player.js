@@ -1,5 +1,5 @@
 var img = document.getElementById("img"); 
-
+var marcheGauche= document.getElementById("marchegauche");
 const imgJump = new Image();
 imgJump.src ="photo/jump.png";
 
@@ -41,37 +41,35 @@ class Player {
         while (Date.now() - date <30) {
 
         }
-      
-        if (keys.ArrowLeft.pressed==true) {
-           
-        }
-           
-        else if (keys.ArrowRight.pressed) {
-          /*  c.drawImage(img,currentLoopIndex*95+currentLoopIndex*33,0,130,height,this.position.x,this.position.y,scaleWidth,scaleWidth);
-        currentLoopIndex++;
-        if(currentLoopIndex>= cycleLoop.length)
-        {
-                currentLoopIndex = 0; 
-        } */
-        }
-        else {
-            currentLoopIndex =0;
-        }
-        if(keys.Space.pressed){
-            c.drawImage(imgJump,currentLoopIndex*95+currentLoopIndex*32,0,138,height,this.position.x,this.position.y,scaleWidth,scaleHeight);
-            
-
-        }else{
-        c.drawImage(img,currentLoopIndex*95+currentLoopIndex*33,0,138,height,this.position.x,this.position.y,scaleWidth,scaleHeight);
-        currentLoopIndex++;}
-        if(currentLoopIndex>= cycleLoop.length)
+        if (keys.ArrowLeft.pressed==true && keys.Space.pressed ==false ) {
+            c.drawImage(marcheGauche,currentLoopIndex*95+currentLoopIndex*33,0,138,height,this.position.x,this.position.y,scaleWidth,scaleHeight);
+            currentLoopIndex++; 
+            if(currentLoopIndex>= cycleLoop.length)
              {
                 currentLoopIndex = 0; 
              } 
+    }
+        if (keys.ArrowRight.pressed==true && keys.Space.pressed ==false) {
+            c.drawImage(img,currentLoopIndex*95+currentLoopIndex*33,0,138,height,this.position.x,this.position.y,scaleWidth,scaleHeight);
+            currentLoopIndex++;
+            if(currentLoopIndex>= cycleLoop.length)
+                 {
+                    currentLoopIndex = 0; 
+                 } 
         }
-    
+      
+        if(keys.Space.pressed && (keys.ArrowLeft.pressed || keys.ArrowRight.pressed)) {
+            c.drawImage(imgJump,currentLoopIndex*95+currentLoopIndex*32,0,138,height,this.position.x,this.position.y,scaleWidth,scaleHeight);
+            
 
-
+        }
+        if(keys.ArrowLeft.pressed==false && keys.ArrowRight.pressed==false)
+        {
+            currentLoopIndex = 0; 
+            c.drawImage(img,currentLoopIndex*95+currentLoopIndex*33,0,138,height,this.position.x,this.position.y,scaleWidth,scaleHeight);
+        }
+            
+    }
     score() //fonction permettant de définir le score
     {
         
